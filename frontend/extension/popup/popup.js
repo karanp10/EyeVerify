@@ -16,7 +16,14 @@ let stats = {
 let velocities = [];
 
 function computeVelocity() {
+    let time =  stats.end - stats.start;
+    let xdist = stats.endX - stats.startX;
+    let ydist = stats.endY - stats.startY;
     
+    let distance = Math.sqrt((xdist * xdist) + (ydist * ydist));
+    
+    
+    velocities.push(distance / time);
 }
 
 
@@ -38,9 +45,16 @@ function handleDragEnd(e) {
 
     if(valid_drag){
         if(omit == dragged) count++;
+        computeVelocity();
+        console.log(velocities);
+
+        if(count == 3){
+            window.location = "./success.html"
+        }
+
+        // Reset Images
         getImages();
         valid_drag = false;
-        computeVelocity()
     }
 
 }
