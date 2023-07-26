@@ -1,21 +1,57 @@
 var url = "https://source.unsplash.com/random/100x100/"
+var dragged;
+var omit;
+let valid_drag = false;
+let count = 0;
+let seen = [];
+let stats = {
+    "start" : null,
+    "end" : null,
+    "startX" : null,
+    "startY" : null,
+    "endX" : null,
+    "endY" : null
+}
 
-let j = 0;
-// document.getElementById("myButton").addEventListener("click", myFunction);
+let velocities = [];
+
+function computeVelocity() {
+    
+}
+
 
 function handleDragStart(e) {
     this.style.opacity = '0.4';
-    console.log(e.detail);
+    dragged = this.dataset.item
+    
+    stats.startX = e.x;
+    stats.startY = e.y;
+    stats.start = e.timeStamp;
+
 }
   
 function handleDragEnd(e) {
     this.style.opacity = '1';
+    stats.endX = e.x;
+    stats.endY = e.y;
+    stats.end = e.timeStamp;
+
+    if(valid_drag){
+        if(omit == dragged) count++;
+        getImages();
+        valid_drag = false;
+        computeVelocity()
+    }
+
 }
 
 async function getImages(){
     var items = document.getElementsByClassName("item");
-    let omit = Math.floor(Math.random() * (16));
-    j = Math.floor(Math.random() * (3));
+    omit = Math.floor(Math.random() * (16));
+    let j = Math.floor(Math.random() * (3));
+    while(seen.length < 3 && seen.includes(j)){
+        j = Math.floor(Math.random() * (3));
+    }
     for(let i = 0; i < 16; i++){
         if(omit != i) fetchImage(items[i]);
         else{
@@ -26,7 +62,7 @@ async function getImages(){
         items[i].addEventListener('dragstart', handleDragStart);
         items[i].addEventListener('dragend', handleDragEnd);
     }
-    j = (j+1) % 3;
+    seen.push(j);
 }
 
 
@@ -44,3 +80,15 @@ async function fetchImage(image) {
   }
 
 getImages()
+
+function draggedOn(){
+    valid_drag = true;
+}
+
+function draggedOff(){
+    valid_drag = false;
+}
+
+let dropbox = document.getElementById("dragbox");
+dropbox.addEventListener("dragenter", draggedOn);
+// dropbox.addEventListener("dragleave", draggedOff);
