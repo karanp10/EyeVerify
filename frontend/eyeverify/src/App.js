@@ -1,17 +1,16 @@
 import './App.css';
-import logo from './synchrony.png'
+// import logo from './synchrony.png'
 import eye from './eye.png'
 
 function showPassword() {
-  var passwordList = document.getElementById('confirmPassword');
-  // for(let i = 0;i<2;i++){
-      var x = passwordList;
-      if (x.type === "password") {
-          x.type = "text";
-      } else {
-          x.type = "password";
-      }
-  // }
+
+  var x = document.getElementById('confirmPassword');
+
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
 }
 
 function fillValues(){
@@ -25,8 +24,8 @@ function fillValues(){
 function App() {
     return (<div>
       <div className="banner">
-          <img src={logo} alt="logo" id="login-logo-1"></img>
-          <img src={logo} alt="logo" id="login-logo-2"></img>
+          {/* <img src={logo} alt="logo" id="login-logo-1"></img>
+          <img src={logo} alt="logo" id="login-logo-2"></img> */}
       </div>
       <div className = "registration-box">
           <p className = "titleText"  onMouseOver={()=>{
@@ -46,33 +45,6 @@ function App() {
       </div>
   </div>);
 
-    // <div className="App">
-    //   <div className="container">
-    //     <h1>Payment Information</h1>
-    //     <form>
-    //       <label for="Card Number" >Card Number: </label>
-    //       <input type="text" id="card-number" name="Card Number"></input>
-    //       <br></br>
-    //       <label for="cvc">CVC: </label>
-    //       <input type="text" id="cvc" name="cvc"></input>
-    //       <br></br>
-    //       <button>Submit</button>
-    //     </form>
-    //   </div>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
 
 }
 
